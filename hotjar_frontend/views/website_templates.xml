@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="website_layout_hotjar" name="Hotjar portal layout" inherit_id="website.layout">
+        <xpath expr="//div[@id='wrapwrap']" position="after">
+            <t t-if="website and website.hotjar_analytics_key">
+                <script id="hotjar_frontend_script">
+                    (function(h,o,t,j,a,r){
+                    h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+                    h._hjSettings={hjid:<t t-out="website.hotjar_analytics_key"/>,hjsv:6};
+                    a=o.getElementsByTagName('head')[0];
+                    r=o.createElement('script');r.async=1;
+                    r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+                    a.appendChild(r);
+                    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+                    <t t-if="request.env.user.login and request.env.user.login != 'public'">
+                        window.hj('identify', '<t t-out="request.env.user.login"/>', {});
+                    </t>
+                </script>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>

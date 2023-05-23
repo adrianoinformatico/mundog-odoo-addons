@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="website_layout_matomo" name="Matomo portal layout" inherit_id="website.layout">
+        <xpath expr="//div[@id='wrapwrap']" position="after">
+            <t t-if="website and website.matomo_analytics_key and website.matomo_analytics_host_normalized">
+                <script id="matomo_frontend_script">
+                    var _paq = window._paq = window._paq || [];
+                    _paq.push(['trackPageView']);
+                    _paq.push(['enableLinkTracking']);
+                    (function() {
+                    var u="//<t t-out="website.matomo_analytics_host_normalized"/>/";
+                    _paq.push(['setTrackerUrl', u+'matomo.php']);
+                    _paq.push(['setSiteId',<t t-out="website.matomo_analytics_key"/>]);
+                    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+                    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+                    <t t-if="request.env.user.login and request.env.user.login != 'public'">
+                        _paq.push(['setUserId', '<t t-out="request.env.user.login"/>']);
+                    </t>
+                    })();
+                </script>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>

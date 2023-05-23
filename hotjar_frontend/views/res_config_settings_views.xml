@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form_hotjar" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.hotjar</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="website.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <div id="google_analytics_setting" position="after">
+                <div class="col-12 col-lg-6 o_setting_box" id="hotjar_analytics_setting">
+                    <div class="o_setting_left_pane">
+                        <field name="has_hotjar_analytics"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="has_hotjar_analytics"/>
+                        <div class="text-muted">
+                            Track visits behavior using Hotjar.
+                        </div>
+                        <div class="content-group" attrs="{'invisible': [('has_hotjar_analytics', '=', False)]}">
+                            <div class="row mt16">
+                                <label class="col-lg-3 o_light_label" string="Site ID"
+                                       for="hotjar_analytics_key"/>
+                                <field name="hotjar_analytics_key" placeholder="ID"
+                                       attrs="{'required': [('has_hotjar_analytics', '=', True)]}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </field>
+    </record>
+
+</odoo>
